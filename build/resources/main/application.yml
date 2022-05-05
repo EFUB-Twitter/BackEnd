@@ -1,0 +1,123 @@
+# local, dev, prod 공통 설정
+application:
+  version: 1.0.0
+  title: backend_efub_twitter
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local # 적용할 프로필 선택
+
+  devtools:
+    livereload:
+      enabled: true # spring-boot-devtools: live-reload
+
+---
+# =========================
+# local 환경
+# =========================
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+
+  datasource:
+    url: jdbc:h2:mem:testdb # Set the database URL a constant
+
+  h2:
+    console:
+      enabled: true # Enable H2 console
+      settings:
+        web-allow-others: true # Allow H2 console access from browser
+    path: /h2-console
+
+  jpa:
+    show-sql: true # Show SQL generated
+
+  # Spring Security
+  security:
+    basic:
+      enabled: false
+    # Default username and password
+    #user:
+    #  name: username
+    #  password: password
+
+logging:
+  level:
+    root: info # debug
+
+server:
+  error:
+    include-exception: true
+    include-binding-errors: always
+    whitelabel:
+      enabled: true
+
+---
+# =========================
+# dev 환경
+# =========================
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  # Enable PostgreSQL
+  datasource:
+    hikari:
+      maximum-pool-size: 4
+    url: ${DOCKER_SPRING_DATASOURCE_URL}
+    username: ${DOCKER_SPRING_DATASOURCE_USERNAME}
+    password: ${DOCKER_SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true # Show SQL generated
+
+  sql:
+    init:
+      platform: mysql
+
+logging:
+  level:
+    root: info
+
+---
+# =========================
+# prod 환경
+# =========================
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  # Enable PostgreSQL
+  datasource:
+    hikari:
+      maximum-pool-size: 4
+    url: ${DOCKER_SPRING_DATASOURCE_URL}
+    username: ${DOCKER_SPRING_DATASOURCE_USERNAME}
+    password: ${DOCKER_SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+  sql:
+    init:
+      platform: mysql
+
+logging:
+  level:
+    root: error
