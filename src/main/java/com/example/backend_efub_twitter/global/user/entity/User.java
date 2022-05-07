@@ -43,12 +43,10 @@ public class User extends BaseTimeEntity {
 	private Profile profile;
 
 	@Builder
-	public User(UUID id, String fullName, String email, String password, Profile profile) {
-		this.id = id;
+	public User(String fullName, String email, String password) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
-		this.profile = profile;
 	}
 
 }
