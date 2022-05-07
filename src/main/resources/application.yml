@@ -70,7 +70,6 @@ spring:
     activate:
       on-profile: dev
 
-  # Enable PostgreSQL
   datasource:
     hikari:
       maximum-pool-size: 4
@@ -101,7 +100,6 @@ spring:
     activate:
       on-profile: prod
 
-  # Enable PostgreSQL
   datasource:
     hikari:
       maximum-pool-size: 4
