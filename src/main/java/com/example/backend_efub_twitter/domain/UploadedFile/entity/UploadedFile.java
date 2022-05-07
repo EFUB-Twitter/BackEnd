@@ -1,7 +1,8 @@
 package com.example.backend_efub_twitter.domain.UploadedFile.entity;
 
-import com.example.backend_efub_twitter.domain.user.entity.User;
+import com.example.backend_efub_twitter.global.user.entity.User;
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -36,5 +37,14 @@ public class UploadedFile {
 
 	@ColumnDefault("0")
 	private Boolean isPrivate;
+
+	@Builder
+	public UploadedFile(String filename, String filetype, String url, String size, Boolean isPrivate){
+		this.filename = filename;
+		this.filetype = filetype;
+		this.url = url;
+		this.size = size;
+		this.isPrivate = isPrivate;
+	}
 
 }
