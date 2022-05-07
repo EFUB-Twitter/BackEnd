@@ -1,4 +1,4 @@
-package com.example.backend_efub_twitter.domain.user.entity;
+package com.example.backend_efub_twitter.global.user.entity;
 
 import com.example.backend_efub_twitter.global.entity.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
