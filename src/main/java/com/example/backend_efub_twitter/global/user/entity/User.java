@@ -1,5 +1,7 @@
 package com.example.backend_efub_twitter.global.user.entity;
 
+import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
+import com.example.backend_efub_twitter.domain.UploadedFile.entity.UploadedFile;
 import com.example.backend_efub_twitter.global.entity.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -17,34 +19,34 @@ import java.util.UUID;
 @NoArgsConstructor
 public class User extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(length = 16)
-    private UUID id;
+	@Id
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(length = 16)
+	private UUID id;
 
-    @Column(nullable = false)
-    private String fullName;
+	@Column(unique = true, nullable = false)
+	private String email;
 
-    @JsonIgnore
-    private String password;
+	@Column(nullable = false)
+	private String fullName;
 
-    /* 프로필 객체 생성 후 연결해주세요
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(nullable = true)
-    private Profile profile;
+	@JsonIgnore
+	private String password;
 
-    @Builder
-    public User(UUID id, String fullName, String email, Boolean emailVerified, String password,
-                String providerId, Profile profile) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.emailVerified = emailVerified;
-        this.password = password;
-        this.profile = profile;
-    }
-*/
+	@OneToOne
+	@JoinColumn
+	private UploadedFile uploadedFileId;
 
+	@OneToOne
+	@JoinColumn
+	private Profile profile;
+
+	@Builder
+	public User(String fullName, String email, String password) {
+		this.fullName = fullName;
+		this.email = email;
+		this.password = password;
+	}
 
 }
