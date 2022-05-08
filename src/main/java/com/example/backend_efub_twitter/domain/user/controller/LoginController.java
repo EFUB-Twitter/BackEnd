@@ -5,14 +5,16 @@ import com.example.backend_efub_twitter.domain.user.dto.SignupReqDto;
 import com.example.backend_efub_twitter.global.user.entity.User;
 import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
 import com.example.backend_efub_twitter.domain.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@RequiredArgsConstructor
 public class LoginController {
 
-	UserService userService;
+	private final UserService userService;
 
 	@PostMapping("/signup")
 	public ResponseEntity<Object> signup(@RequestBody SignupReqDto signupReqDto){
