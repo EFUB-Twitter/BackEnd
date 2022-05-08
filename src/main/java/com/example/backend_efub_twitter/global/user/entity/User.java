@@ -34,11 +34,11 @@ public class User extends BaseTimeEntity {
 	@JsonIgnore
 	private String password;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	private UploadedFile uploadedFileId;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	private Profile profile;
 
