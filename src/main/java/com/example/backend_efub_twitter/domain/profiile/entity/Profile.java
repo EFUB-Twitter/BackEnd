@@ -33,8 +33,17 @@ public class Profile extends BaseTimeEntity {
 	private String nickname;
 
 	@Builder
-	public Profile(String nickname){
+	public Profile(User user, String nickname){
+		this.user = user;
 		this.nickname = nickname;
+	}
+
+	public void setNickname(String nickname){
+		this.nickname = nickname;
+	}
+
+	public void setUploadedFile(UploadedFile uploadedFile){
+		this.uploadedFile = uploadedFile;
 	}
 
 }
