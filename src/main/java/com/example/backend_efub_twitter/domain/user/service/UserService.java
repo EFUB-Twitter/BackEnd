@@ -1,7 +1,5 @@
 package com.example.backend_efub_twitter.domain.user.service;
 
-
-import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
 import com.example.backend_efub_twitter.domain.user.dto.LoginReqDto;
 import com.example.backend_efub_twitter.domain.user.dto.SignupReqDto;
 import com.example.backend_efub_twitter.global.user.entity.User;
@@ -23,7 +21,7 @@ public class UserService {
 	public ResponseEntity<Object> joinUser(SignupReqDto signupReqDto){
 		User user = signupReqDto.toEntity(signupReqDto);
 		userRepository.save(user);
-		return ResponseEntity.ok(201);
+		return ResponseEntity.status(HttpStatus.CREATED).body(user.getFullName()+"님이 성공적으로 가입되었습니다.");
 	}
 
 	@Transactional(readOnly = true)
