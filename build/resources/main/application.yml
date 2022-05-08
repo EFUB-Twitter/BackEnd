@@ -14,6 +14,9 @@ spring:
     livereload:
       enabled: true # spring-boot-devtools: live-reload
 
+  main:
+    allow-bean-definition-overriding: true # bean overriding 활성화
+
 ---
 # =========================
 # local 환경
@@ -70,7 +73,6 @@ spring:
     activate:
       on-profile: dev
 
-  # Enable PostgreSQL
   datasource:
     hikari:
       maximum-pool-size: 4
@@ -101,7 +103,6 @@ spring:
     activate:
       on-profile: prod
 
-  # Enable PostgreSQL
   datasource:
     hikari:
       maximum-pool-size: 4
