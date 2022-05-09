@@ -17,6 +17,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "keyword") })
 public class HashTag {
     @Id
     @GeneratedValue(generator = "uuid2")
