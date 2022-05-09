@@ -45,9 +45,13 @@ public class Board extends BaseTimeEntity {
     private Set<BoardHashTag> boardHashTags = new HashSet<>();
 
     @Builder
-    public Board(User user, String description, Set<BoardHashTag> boardHashTags) {
+    public Board(User user, String description) {
         this.user = user;
         this.description = description;
-        this.boardHashTags = boardHashTags;
+    }
+
+    public void addBoardHashTag(BoardHashTag boardHashTag){
+        boardHashTag.setBoard(this);
+        this.boardHashTags.add(boardHashTag);
     }
 }
