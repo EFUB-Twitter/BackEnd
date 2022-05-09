@@ -1,10 +1,7 @@
 package com.example.backend_efub_twitter.domain.board.entity;
 
 import com.example.backend_efub_twitter.domain.hashtag.entity.HashTag;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +17,7 @@ public class BoardHashTag {
     @Column(length = 16)
     private UUID id;
 
+    @Setter
     @ManyToOne
     @JoinColumn
     private Board board;
