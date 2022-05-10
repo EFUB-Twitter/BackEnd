@@ -4,7 +4,7 @@ import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
 import com.example.backend_efub_twitter.domain.user.dto.LoginReqDto;
 import com.example.backend_efub_twitter.domain.user.dto.SignupReqDto;
 import com.example.backend_efub_twitter.global.config.Account;
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
 import com.example.backend_efub_twitter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

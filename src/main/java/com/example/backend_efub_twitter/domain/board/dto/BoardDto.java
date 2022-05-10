@@ -1,6 +1,7 @@
 package com.example.backend_efub_twitter.domain.board.dto;
 
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagDto;
+import com.example.backend_efub_twitter.domain.user.dto.UserResDto;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -39,6 +40,7 @@ public class BoardDto {
     @AllArgsConstructor
     public static class Response {
         private UUID id;
+        private UserResDto userResDto;
         private String description;
         private Set<HashTagDto.HashTagResponseDto> hashTags;
         private LocalDateTime boardCreateOn;

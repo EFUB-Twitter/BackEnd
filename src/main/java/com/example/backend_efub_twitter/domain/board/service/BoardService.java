@@ -4,6 +4,8 @@ import com.example.backend_efub_twitter.domain.board.entity.Board;
 import com.example.backend_efub_twitter.domain.board.exception.BoardNotFoundException;
 import com.example.backend_efub_twitter.domain.board.repository.BoardRepository;
 import com.example.backend_efub_twitter.domain.hashtag.repository.HashTagRepository;
+import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
+import com.example.backend_efub_twitter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,18 +13,21 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-
+    private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final HashTagRepository hashTagRepository;
 
     @Transactional
-    public Board save(Board board){
-        board.getBoardHashTags().forEach((boardHashTag)->{
+    public Board save(Board board) {
+        userRepository.findById(board.getUser().getId())
+                .orElseThrow(() -> new UserNotFoundException("User not found with id" + board.getUser().getId()));
+        board.getBoardHashTags().forEach((boardHashTag) -> {
             this.hashTagRepository.save(boardHashTag.getHashTag());
             board.addBoardHashTag(boardHashTag);
         });
@@ -30,9 +35,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(UUID id){
+    public void delete(UUID id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(()-> new BoardNotFoundException("Board not found with id"+ id));
+                .orElseThrow(() -> new BoardNotFoundException("Board not found with id" + id));
         boardRepository.delete(board);
     }
 
@@ -43,7 +48,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> findAll(Specification<Board> spec, Pageable pageable){
+    public Page<Board> findAll(Specification<Board> spec, Pageable pageable) {
         return boardRepository.findAll(spec, pageable);
     }
 }

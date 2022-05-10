@@ -1,6 +1,6 @@
 package com.example.backend_efub_twitter.domain.user.dto;
 
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

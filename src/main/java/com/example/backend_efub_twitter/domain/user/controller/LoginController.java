@@ -7,14 +7,11 @@ import com.example.backend_efub_twitter.domain.user.exception.DuplicateUserExcep
 import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
 import com.example.backend_efub_twitter.domain.user.service.UserService;
 import com.example.backend_efub_twitter.global.config.JwtTokenProvider;
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
