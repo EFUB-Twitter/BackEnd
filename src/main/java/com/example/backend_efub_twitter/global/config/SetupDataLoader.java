@@ -6,6 +6,8 @@ import com.example.backend_efub_twitter.domain.board.repository.BoardHashTagRepo
 import com.example.backend_efub_twitter.domain.board.repository.BoardRepository;
 import com.example.backend_efub_twitter.domain.hashtag.entity.HashTag;
 import com.example.backend_efub_twitter.domain.hashtag.repository.HashTagRepository;
+import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
+import com.example.backend_efub_twitter.domain.profiile.repository.ProfileRepository;
 import com.example.backend_efub_twitter.domain.user.entity.User;
 import com.example.backend_efub_twitter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private final BoardRepository boardRepository;
     private final BoardHashTagRepository boardHashTagRepository;
     private final HashTagRepository hashTagRepository;
+    private final ProfileRepository profileRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -55,6 +58,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                     .password(passwordEncoder.encode("efub1886"))
                     .build();
             testUser = userRepository.save(testUser);
+
+            Profile profile = Profile.builder()
+                    .user(testUser)
+                    .nickname("ewha"+i)
+                    .bio("여기는 이화")
+                    .build();
+
+            profile = profileRepository.save(profile);
+            testUser.setProfile(profile);
 
             Board board = Board.builder()
                     .user(testUser)
