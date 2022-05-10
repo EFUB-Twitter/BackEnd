@@ -6,6 +6,8 @@ import com.example.backend_efub_twitter.domain.board.repository.BoardRepository;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagDto;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagMapper;
 import com.example.backend_efub_twitter.domain.hashtag.entity.HashTag;
+import com.example.backend_efub_twitter.domain.user.dto.UserMapper;
+import com.example.backend_efub_twitter.domain.user.dto.UserResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ public class BoardMapper {
 
     private final BoardRepository boardRepository;
     private final HashTagMapper hashTagMapper;
+    private final UserMapper userMapper;
 
     public Board toEntity(BoardDto.CreateRequest requestDto){
         Board board = Board.builder()
@@ -44,8 +47,11 @@ public class BoardMapper {
                 .map(hashTagMapper::fromEntity)
                 .collect(Collectors.toSet());
 
+        UserResDto.Response userResDto = userMapper.toResponseDto(entity.getUser());
+
         return BoardDto.Response.builder()
                 .id(entity.getId())
+                .userResDto(userResDto)
                 .description(entity.getDescription())
                 .hashTags(hashTags)
                 .boardCreateOn(entity.getCreatedOn())

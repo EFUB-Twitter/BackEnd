@@ -40,7 +40,7 @@ public class BoardDto {
     @AllArgsConstructor
     public static class Response {
         private UUID id;
-        private UserResDto userResDto;
+        private UserResDto.Response userResDto;
         private String description;
         private Set<HashTagDto.HashTagResponseDto> hashTags;
         private LocalDateTime boardCreateOn;
