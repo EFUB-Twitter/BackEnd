@@ -17,6 +17,8 @@ public class BoardDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateRequest {
+        @NotNull
+        private UUID userId;
         @NotEmpty
         private String description;
         @NotNull
