@@ -1,6 +1,7 @@
 package com.example.backend_efub_twitter.domain.profiile.entity;
 
 import com.example.backend_efub_twitter.domain.UploadedFile.entity.UploadedFile;
+import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyReqDto;
 import com.example.backend_efub_twitter.global.user.entity.User;
 import com.example.backend_efub_twitter.global.entity.BaseTimeEntity;
 import com.sun.istack.NotNull;
@@ -32,18 +33,19 @@ public class Profile extends BaseTimeEntity {
 	@Column(unique = true, nullable = false)
 	private String nickname;
 
+	@NotNull
+	private String bio;
+
 	@Builder
-	public Profile(User user, String nickname){
+	public Profile(User user, String nickname, String bio){
 		this.user = user;
 		this.nickname = nickname;
+		this.bio = bio;
 	}
 
-	public void setNickname(String nickname){
-		this.nickname = nickname;
-	}
-
-	public void setUploadedFile(UploadedFile uploadedFile){
-		this.uploadedFile = uploadedFile;
+	public void updateProfile(ProfileModifyReqDto profileModifyReqDto){
+		this.nickname = profileModifyReqDto.getNickname();
+		this.bio = profileModifyReqDto.getBio();
 	}
 
 }

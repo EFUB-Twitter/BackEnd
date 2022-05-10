@@ -1,6 +1,7 @@
 package com.example.backend_efub_twitter.domain.user.service;
 
 import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
+import com.example.backend_efub_twitter.domain.profiile.repository.ProfileRepository;
 import com.example.backend_efub_twitter.domain.user.dto.LoginReqDto;
 import com.example.backend_efub_twitter.domain.user.dto.SignupReqDto;
 import com.example.backend_efub_twitter.global.config.Account;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService implements UserDetailsService {
 
 	private final UserRepository userRepository;
+	private final ProfileRepository profileRepository;
 
 	@Transactional
 	public ResponseEntity<Object> joinUser(SignupReqDto signupReqDto){
@@ -29,10 +31,13 @@ public class UserService implements UserDetailsService {
 		Profile profile = Profile.builder()
 			.nickname(signupReqDto.getFullName())
 			.user(user)
+			.bio("자기소개를 해주세요.")
 			.build();
+
 		user.setProfile(profile);
 
 		userRepository.save(user);
+		profileRepository.save(profile);
 		return ResponseEntity.status(HttpStatus.CREATED).body(user.getFullName()+"님이 성공적으로 가입되었습니다.");
 	}
 
