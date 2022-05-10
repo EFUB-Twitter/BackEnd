@@ -55,7 +55,6 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public Account loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println(email);
 		return userRepository.findByEmail(email).map(User::toAccount)
 			.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 사용자입니다."));
 
