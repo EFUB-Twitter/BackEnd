@@ -24,8 +24,14 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
 @RequestMapping("/api/v1/boards")
+@Api(tags = {"게시글 API"})
 @RequiredArgsConstructor
 public class BoardController {
 
@@ -35,6 +41,7 @@ public class BoardController {
     private final HashTagMapper hashTagMapper;
 
     @PostMapping
+    @ApiOperation(value = "게시글 생성", notes = "게시글을 생성한다.")
     public ResponseEntity<BoardDto.Response> createBoard(
             @Valid @RequestBody BoardDto.CreateRequest requestDto
     ){
@@ -51,8 +58,9 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제한다.")
     public ResponseEntity<BoardDto.DeleteRequest> deleteBoard(
-            @AuthenticationPrincipal User user, @PathVariable UUID id){
+            @ApiIgnore @AuthenticationPrincipal User user,@ApiParam(value = "게시글 ID", required = true) @PathVariable UUID id){
         Board board = boardService.findById(id);
         if (!user.getId().equals(board.getUser().getId())){
             throw new UserNotFoundException("유저가 일치하지 않습니다");
@@ -64,9 +72,10 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "게시글 상세 조회", notes = "게시글 하나에 대한 상세 정보를 조회한다.")
     public ResponseEntity<BoardDto.Response> getBoard(
-            @AuthenticationPrincipal User user,
-            @PathVariable UUID id
+            @ApiIgnore @AuthenticationPrincipal User user,
+            @ApiParam(value = "게시글 ID", required = true) @PathVariable UUID id
     ){
         Board entity = boardService.findById(id);
         return ResponseEntity
@@ -75,9 +84,10 @@ public class BoardController {
     }
 
     @GetMapping
+    @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 조회한다.")
     public ResponseEntity<Page<BoardDto.Response>> getBoardList(
-            @RequestParam(required = false) UUID userID,
-            @RequestParam(required = false) List<String> hashTagKeyword,
+            @ApiParam(value = "게시글 등록 사용자", example = "0sk24do0-dsb2-d2e3-njt7-skt81bfse0") @RequestParam(required = false) UUID userID,
+            @ApiParam(value = "해시태그 키워드 (배열, ',' 로 구분)", example = "java, 알고리즘") @RequestParam(required = false) List<String> hashTagKeyword,
             @PageableDefault(sort={"createdOn"}, direction = Sort.Direction.DESC) final Pageable pageable
             ){
 
