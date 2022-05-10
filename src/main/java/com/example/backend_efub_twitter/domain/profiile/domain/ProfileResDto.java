@@ -2,11 +2,10 @@ package com.example.backend_efub_twitter.domain.profiile.domain;
 
 import com.example.backend_efub_twitter.domain.board.entity.Board;
 import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
@@ -20,5 +19,15 @@ public class ProfileResDto {
 		this.nickname = profile.getNickname();
 		this.bio = profile.getBio();
 		this.boardList = boardList;
+	}
+
+	@Getter
+	@Setter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class Response {
+		private String nickname;
+		private String bio;
 	}
 }

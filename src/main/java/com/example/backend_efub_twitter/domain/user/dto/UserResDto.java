@@ -1,5 +1,6 @@
 package com.example.backend_efub_twitter.domain.user.dto;
 
+import com.example.backend_efub_twitter.domain.profiile.domain.ProfileResDto;
 import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
 import lombok.*;
 
@@ -15,7 +16,7 @@ public class UserResDto {
 		private UUID id;
 		private String email;
 		private String fullName;
-		private Profile profile;
+		private ProfileResDto.Response profile;
 	}
 
 }
