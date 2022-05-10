@@ -1,7 +1,6 @@
 package com.example.backend_efub_twitter.domain.profiile.controller;
 
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyReqDto;
-import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyResDto;
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileResDto;
 import com.example.backend_efub_twitter.domain.profiile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +26,14 @@ public class UserProfileController {
 	}
 
 	@PostMapping("/modify/{nickname}")
-	public ResponseEntity<ProfileModifyResDto> modifyProfile(
+	public ResponseEntity<ProfileResDto> modifyProfile(
 		@PathVariable String nickname,
 		@RequestBody ProfileModifyReqDto profileModifyReqDto) {
 
-		ProfileModifyResDto profileModifyResDto = profileService.modifyProfile(nickname, profileModifyReqDto);
+		ProfileResDto profileResDto = profileService.modifyProfile(nickname, profileModifyReqDto);
 		return ResponseEntity
 			.ok()
-			.body(profileModifyResDto);
+			.body(profileResDto);
 
 	}
 }
