@@ -40,7 +40,7 @@ public class BoardMapper {
 
         Set<HashTagDto.HashTagResponseDto> hashTags = entity.getBoardHashTags()
                 .stream()
-                .map(BoardHashTag::getBoard)
+                .map(BoardHashTag::getHashTag)
                 .map(hashTagMapper::fromEntity)
                 .collect(Collectors.toSet());
 

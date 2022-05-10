@@ -47,7 +47,7 @@ public class BoardController {
                 .body(boardMapper.toResponseDto(entity));
     }
 
-    @DeleteMapping("/{id]")
+    @DeleteMapping("/{id}")
     public ResponseEntity<BoardDto.DeleteRequest> deleteBoard(
           @PathVariable UUID id){
         Board board = boardService.findById(id);
