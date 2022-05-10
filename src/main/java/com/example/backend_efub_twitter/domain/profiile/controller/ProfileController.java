@@ -4,7 +4,7 @@ import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyReqD
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyResDto;
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileResDto;
 import com.example.backend_efub_twitter.domain.profiile.service.ProfileService;
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

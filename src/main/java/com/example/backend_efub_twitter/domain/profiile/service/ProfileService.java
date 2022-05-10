@@ -8,7 +8,7 @@ import com.example.backend_efub_twitter.domain.profiile.domain.ProfileResDto;
 import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
 import com.example.backend_efub_twitter.domain.profiile.exception.DuplicateNicknameException;
 import com.example.backend_efub_twitter.domain.profiile.repository.ProfileRepository;
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

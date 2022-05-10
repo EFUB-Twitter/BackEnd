@@ -3,7 +3,6 @@ package com.example.backend_efub_twitter.domain.profiile.entity;
 import com.example.backend_efub_twitter.domain.UploadedFile.entity.UploadedFile;
 import com.example.backend_efub_twitter.domain.user.entity.User;
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyReqDto;
-import com.example.backend_efub_twitter.global.user.entity.User;
 import com.example.backend_efub_twitter.global.entity.BaseTimeEntity;
 import com.sun.istack.NotNull;
 import lombok.Builder;
