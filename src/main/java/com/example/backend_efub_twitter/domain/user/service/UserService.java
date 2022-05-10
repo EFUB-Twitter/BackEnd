@@ -28,8 +28,9 @@ public class UserService implements UserDetailsService {
 	public ResponseEntity<Object> joinUser(SignupReqDto signupReqDto){
 		User user = signupReqDto.toEntity(signupReqDto);
 
+		String[] array = signupReqDto.getEmail().split("@");
 		Profile profile = Profile.builder()
-			.nickname(signupReqDto.getFullName())
+			.nickname(array[0])
 			.user(user)
 			.bio("자기소개를 해주세요.")
 			.build();
