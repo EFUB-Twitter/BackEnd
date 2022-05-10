@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/profile")
+@RequestMapping("/api/v1/profiles")
 @RequiredArgsConstructor
 public class UserProfileController {
 
@@ -20,6 +20,7 @@ public class UserProfileController {
 		@PathVariable String nickname){
 
 		ProfileResDto profileResDto = profileService.getProfile(nickname);
+
 		return ResponseEntity
 			.ok()
 			.body(profileResDto);
