@@ -11,17 +11,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/profile")
+@RequestMapping("/api/v1/profiles")
 @RequiredArgsConstructor
 public class ProfileController {
 
 	private final ProfileService profileService;
 
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<ProfileResDto> getProfile(
 		@AuthenticationPrincipal User user){
 
-		System.out.println(user.getFullName());
 		ProfileResDto profileResDto = profileService.getProfile(user);
 		return ResponseEntity
 			.ok()
