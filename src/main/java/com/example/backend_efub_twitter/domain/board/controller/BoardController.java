@@ -9,7 +9,7 @@ import com.example.backend_efub_twitter.domain.board.specification.BoardSpecific
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagMapper;
 import com.example.backend_efub_twitter.domain.hashtag.service.HashTagService;
 import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
-import com.example.backend_efub_twitter.global.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
