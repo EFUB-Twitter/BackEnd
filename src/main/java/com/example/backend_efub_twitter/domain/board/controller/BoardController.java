@@ -8,6 +8,8 @@ import com.example.backend_efub_twitter.domain.board.specification.BoardSearchCr
 import com.example.backend_efub_twitter.domain.board.specification.BoardSpecification;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagMapper;
 import com.example.backend_efub_twitter.domain.hashtag.service.HashTagService;
+import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
+import com.example.backend_efub_twitter.global.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,8 +52,11 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BoardDto.DeleteRequest> deleteBoard(
-          @PathVariable UUID id){
+            @AuthenticationPrincipal User user, @PathVariable UUID id){
         Board board = boardService.findById(id);
+        if (!user.getId().equals(board.getUser().getId())){
+            throw new UserNotFoundException("유저가 일치하지 않습니다");
+        }
         boardService.delete(id);
         return ResponseEntity
                 .ok()
@@ -59,6 +65,7 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BoardDto.Response> getBoard(
+            @AuthenticationPrincipal User user,
             @PathVariable UUID id
     ){
         Board entity = boardService.findById(id);
