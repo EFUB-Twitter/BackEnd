@@ -4,36 +4,33 @@ import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyReqD
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileModifyResDto;
 import com.example.backend_efub_twitter.domain.profiile.domain.ProfileResDto;
 import com.example.backend_efub_twitter.domain.profiile.service.ProfileService;
-import com.example.backend_efub_twitter.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/profile")
 @RequiredArgsConstructor
-public class ProfileController {
+public class UserProfileController {
 
 	private final ProfileService profileService;
 
-	@GetMapping("/")
+	@GetMapping("/{nickname}")
 	public ResponseEntity<ProfileResDto> getProfile(
-		@AuthenticationPrincipal User user){
+		@PathVariable String nickname){
 
-		System.out.println(user.getFullName());
-		ProfileResDto profileResDto = profileService.getProfile(user);
+		ProfileResDto profileResDto = profileService.getProfile(nickname);
 		return ResponseEntity
 			.ok()
 			.body(profileResDto);
 	}
 
-	@PostMapping("/modify")
+	@PostMapping("/modify/{nickname}")
 	public ResponseEntity<ProfileModifyResDto> modifyProfile(
-		@AuthenticationPrincipal User user,
+		@PathVariable String nickname,
 		@RequestBody ProfileModifyReqDto profileModifyReqDto) {
 
-		ProfileModifyResDto profileModifyResDto = profileService.modifyProfile(user, profileModifyReqDto);
+		ProfileModifyResDto profileModifyResDto = profileService.modifyProfile(nickname, profileModifyReqDto);
 		return ResponseEntity
 			.ok()
 			.body(profileModifyResDto);
