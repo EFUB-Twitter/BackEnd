@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/boards")
@@ -75,10 +76,9 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BoardDto.Response>> getBoardList(
+    public ResponseEntity<List<BoardDto.Response>> getBoardList(
             @RequestParam(required = false) UUID userID,
-            @RequestParam(required = false) List<String> hashTagKeyword,
-            @PageableDefault(sort={"createdOn"}, direction = Sort.Direction.DESC) final Pageable pageable
+            @RequestParam(required = false) List<String> hashTagKeyword
             ){
 
         BoardSpecification spec = new BoardSpecification(
@@ -86,10 +86,10 @@ public class BoardController {
                         .userId(userID)
                         .hashTagKeyword(hashTagKeyword)
                         .build());
-        Page<Board> result = boardService.findAll(spec, pageable);
+        List<Board> result = boardService.findAll(spec);
         return ResponseEntity
                 .ok()
-                .body(result.map(boardMapper::toResponseDto));
+                .body(result.stream().map(boardMapper::toResponseDto).collect(Collectors.toList()));
     }
 
 }

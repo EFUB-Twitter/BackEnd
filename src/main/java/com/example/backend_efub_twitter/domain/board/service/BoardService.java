@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -48,7 +49,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> findAll(Specification<Board> spec, Pageable pageable) {
-        return boardRepository.findAll(spec, pageable);
+    public List<Board> findAll(Specification<Board> spec) {
+        return boardRepository.findAll(spec);
     }
 }
