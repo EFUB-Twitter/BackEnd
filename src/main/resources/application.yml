@@ -32,7 +32,11 @@ spring:
         bootstrap-mode: default
 
   datasource:
-    url: jdbc:h2:mem:testdb # Set the database URL a constant
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://efub-twitter.cln9ditke2lj.ap-northeast-2.rds.amazonaws.com:3306/efubtwitter
+    username: admin
+    password: ewhaefubtwitter
+    #url: jdbc:h2:mem:testdb # Set the database URL a constant
 
   h2:
     console:
@@ -43,6 +47,10 @@ spring:
 
   jpa:
     show-sql: true # Show SQL generated
+
+  sql:
+    init:
+      platform: mysql
 
   # Spring Security
   security:
@@ -74,11 +82,10 @@ spring:
       on-profile: dev
 
   datasource:
-    hikari:
-      maximum-pool-size: 4
-    url: ${DOCKER_SPRING_DATASOURCE_URL}
-    username: ${DOCKER_SPRING_DATASOURCE_USERNAME}
-    password: ${DOCKER_SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:mysql://efub-twitter.cln9ditke2lj.ap-northeast-2.rds.amazonaws.com:3306/efubtwitter
+    username: admin
+    password: ewhaefubtwitter
+      #url: jdbc:h2:mem:testdb # Set the database URL a constant
 
   jpa:
     hibernate:
@@ -104,11 +111,10 @@ spring:
       on-profile: prod
 
   datasource:
-    hikari:
-      maximum-pool-size: 4
-    url: ${DOCKER_SPRING_DATASOURCE_URL}
-    username: ${DOCKER_SPRING_DATASOURCE_USERNAME}
-    password: ${DOCKER_SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:mysql://efub-twitter.cln9ditke2lj.ap-northeast-2.rds.amazonaws.com:3306/efubtwitter
+    username: admin
+    password: ewhaefubtwitter
+      #url: jdbc:h2:mem:testdb # Set the database URL a constant
 
   jpa:
     hibernate:

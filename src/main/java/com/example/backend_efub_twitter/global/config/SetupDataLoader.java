@@ -1,3 +1,4 @@
+/**
 package com.example.backend_efub_twitter.global.config;
 
 import com.example.backend_efub_twitter.domain.board.entity.Board;
@@ -32,6 +33,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private final ProfileRepository profileRepository;
 
     private final PasswordEncoder passwordEncoder;
+
 
     @Transactional
     public void createInitialContents() {
@@ -86,3 +88,4 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         alreadySetup = true;
     }
 }
+**/
