@@ -30,7 +30,7 @@ public class LoginController {
 		return userService.joinUser(signupReqDto);
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public LoginResDto login(@RequestBody LoginReqDto loginReqDto) throws UserNotFoundException {
 		User user = userService.findUser(loginReqDto);
 		if (!passwordEncoder.matches(loginReqDto.getPassword(), user.getPassword())){
