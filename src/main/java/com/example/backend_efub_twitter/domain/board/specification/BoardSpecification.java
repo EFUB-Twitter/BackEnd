@@ -26,7 +26,7 @@ public class BoardSpecification implements Specification<Board> {
         if (criteria.getHashTagKeyword() != null){
             criteria.getHashTagKeyword().forEach(
                     hashtagKeyword -> predicates.add(criteriaBuilder.equal(
-                            root.join("boardHashTag").join("hashTag").get("keyword"),
+                            root.join("boardHashTags").join("hashTag").get("keyword"),
                             hashtagKeyword
                     ))
             );
