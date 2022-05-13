@@ -6,8 +6,12 @@ import com.example.backend_efub_twitter.domain.board.repository.BoardRepository;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagDto;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagMapper;
 import com.example.backend_efub_twitter.domain.hashtag.entity.HashTag;
+import com.example.backend_efub_twitter.domain.profiile.entity.Profile;
+import com.example.backend_efub_twitter.domain.profiile.repository.ProfileRepository;
 import com.example.backend_efub_twitter.domain.user.dto.UserMapper;
 import com.example.backend_efub_twitter.domain.user.dto.UserResDto;
+import com.example.backend_efub_twitter.domain.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +23,18 @@ import java.util.stream.Collectors;
 public class BoardMapper {
 
     private final BoardRepository boardRepository;
+    private final ProfileRepository profileRepository;
     private final HashTagMapper hashTagMapper;
     private final UserMapper userMapper;
 
     public Board toEntity(BoardDto.CreateRequest requestDto){
+        Profile profile = profileRepository.findByNickname(requestDto.getNickname())
+                .orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
+
+        User user = profile.getUser();
+
         Board board = Board.builder()
+                .user(user)
                 .description(requestDto.getDescription())
                 .build();
         for (String hashTagKeyword: requestDto.getHashTags()){

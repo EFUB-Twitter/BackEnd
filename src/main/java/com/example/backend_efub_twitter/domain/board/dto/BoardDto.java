@@ -19,7 +19,7 @@ public class BoardDto {
     @AllArgsConstructor
     public static class CreateRequest {
         @NotNull
-        private UUID userId;
+        private String nickname;
         @NotEmpty
         private String description;
         @NotNull
