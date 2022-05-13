@@ -8,8 +8,10 @@ import com.example.backend_efub_twitter.domain.board.specification.BoardSearchCr
 import com.example.backend_efub_twitter.domain.board.specification.BoardSpecification;
 import com.example.backend_efub_twitter.domain.hashtag.dto.HashTagMapper;
 import com.example.backend_efub_twitter.domain.hashtag.service.HashTagService;
+import com.example.backend_efub_twitter.domain.user.dto.UserResDto;
 import com.example.backend_efub_twitter.domain.user.exception.UserNotFoundException;
 import com.example.backend_efub_twitter.domain.user.entity.User;
+import com.example.backend_efub_twitter.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ public class BoardController {
     private final BoardMapper boardMapper;
     private final HashTagService hashTagService;
     private final HashTagMapper hashTagMapper;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<BoardDto.Response> createBoard(
@@ -53,22 +56,32 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BoardDto.DeleteRequest> deleteBoard(
-            @AuthenticationPrincipal User user, @PathVariable UUID id){
+            @RequestParam(required = false) String nickname, @PathVariable UUID id){
+
+        UserResDto.Response user = userService.getUserInfoByProfile(nickname);
         Board board = boardService.findById(id);
+
         if (!user.getId().equals(board.getUser().getId())){
             throw new UserNotFoundException("유저가 일치하지 않습니다");
         }
         boardService.delete(id);
+
+        BoardDto.DeleteRequest deleteRequest = BoardDto.DeleteRequest.builder()
+                .id(id)
+                .message("게시물이 삭제되었습니다")
+                .build();
+
         return ResponseEntity
                 .ok()
-                .body(new BoardDto.DeleteRequest(id));
+                .body(deleteRequest);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BoardDto.Response> getBoard(
-            @AuthenticationPrincipal User user,
+            @RequestParam(required = false) String nickname,
             @PathVariable UUID id
     ){
+        UserResDto.Response user = userService.getUserInfoByProfile(nickname);
         Board entity = boardService.findById(id);
         return ResponseEntity
                 .ok()
@@ -77,16 +90,23 @@ public class BoardController {
 
     @GetMapping
     public ResponseEntity<List<BoardDto.Response>> getBoardList(
-            @RequestParam(required = false) UUID userID,
+            @RequestParam(required = false) String nickname,
             @RequestParam(required = false) List<String> hashTagKeyword
             ){
 
+        UserResDto.Response user = new UserResDto.Response();
+
+        if (nickname != null){
+            user = userService.getUserInfoByProfile(nickname);
+        }
+
         BoardSpecification spec = new BoardSpecification(
                 BoardSearchCriteria.builder()
-                        .userId(userID)
+                        .userId(user.getId())
                         .hashTagKeyword(hashTagKeyword)
                         .build());
         List<Board> result = boardService.findAll(spec);
+
         return ResponseEntity
                 .ok()
                 .body(result.stream().map(boardMapper::toResponseDto).collect(Collectors.toList()));

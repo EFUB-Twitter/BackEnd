@@ -32,10 +32,10 @@ spring:
         bootstrap-mode: default
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username:
-    password:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url:
+    #username:
+    #password:
     #url: jdbc:h2:mem:testdb # Set the database URL a constant
 
   h2:

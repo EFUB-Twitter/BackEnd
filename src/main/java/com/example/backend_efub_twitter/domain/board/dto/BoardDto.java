@@ -27,10 +27,14 @@ public class BoardDto {
     }
 
     @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class DeleteRequest {
         @NotBlank
         private UUID id;
+        private String message;
     }
 
     @Getter
