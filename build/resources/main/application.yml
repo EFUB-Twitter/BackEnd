@@ -32,11 +32,11 @@ spring:
         bootstrap-mode: default
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://efub-twitter.cln9ditke2lj.ap-northeast-2.rds.amazonaws.com:3306/efubtwitter
-    username: admin
-    password: ewhaefubtwitter
-    #url: jdbc:h2:mem:testdb # Set the database URL a constant
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://efub-twitter.cln9ditke2lj.ap-northeast-2.rds.amazonaws.com:3306/efubtwitter
+    #username: admin
+    #password: ewhaefubtwitter
+    url: jdbc:h2:mem:testdb # Set the database URL a constant
 
   h2:
     console:

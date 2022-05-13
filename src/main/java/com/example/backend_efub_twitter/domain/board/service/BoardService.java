@@ -38,14 +38,14 @@ public class BoardService {
     @Transactional
     public void delete(UUID id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new BoardNotFoundException("Board not found with id" + id));
+                .orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다."));
         boardRepository.delete(board);
     }
 
     @Transactional(readOnly = true)
     public Board findById(UUID id) {
         return boardRepository.findById(id)
-                .orElseThrow(() -> new BoardNotFoundException("Board not found with id=" + id));
+                .orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다."));
     }
 
     @Transactional(readOnly = true)

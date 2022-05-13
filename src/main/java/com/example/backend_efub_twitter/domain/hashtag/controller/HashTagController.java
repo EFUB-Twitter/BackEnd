@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/hashtags")
@@ -29,16 +31,16 @@ public class HashTagController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<HashTagDto.HashTagResponseDto>> getList(
+    public ResponseEntity<List<HashTagDto.HashTagResponseDto>> getList(
             @PageableDefault(
                     sort = {"keyword"},
                     direction = Sort.Direction.ASC
             ) final Pageable pageable){
-        Page<HashTag> result = hashTagService.findAll(pageable);
+        List<HashTag> result = hashTagService.findAll(pageable);
 
         return ResponseEntity
                 .ok()
-                .body(result.map(hashTagMapper::fromEntity));
+                .body(result.stream().map(hashTagMapper::fromEntity).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
