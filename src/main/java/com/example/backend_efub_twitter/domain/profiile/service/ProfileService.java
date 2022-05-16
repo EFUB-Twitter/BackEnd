@@ -33,12 +33,8 @@ public class ProfileService {
 
 		User user = profile.getUser();
 
-		Optional<Board> optionalBoardList = boardRepository.findByUser_Id(user.getId());
-		List<Board> boardList = optionalBoardList.stream().collect(Collectors.toList());
-
 		return ProfileResDto.builder()
 			.profile(profile)
-			.boardList(boardList)
 			.build();
 	}
 

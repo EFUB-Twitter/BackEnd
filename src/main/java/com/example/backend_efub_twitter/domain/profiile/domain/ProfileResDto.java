@@ -12,13 +12,11 @@ import java.util.UUID;
 public class ProfileResDto {
 	String nickname;
 	String bio;
-	List<Board> boardList;
 
 	@Builder
-	public ProfileResDto(Profile profile, List<Board> boardList){
+	public ProfileResDto(Profile profile){
 		this.nickname = profile.getNickname();
 		this.bio = profile.getBio();
-		this.boardList = boardList;
 	}
 
 	@Getter
